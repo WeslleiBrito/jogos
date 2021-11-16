@@ -1,3 +1,7 @@
+import os
+from time import sleep
+
+
 def linha(t):
     li = '-' * (t + 4)
     return print('\033[1;33m' + li + '\033[0m')
@@ -28,3 +32,36 @@ def resumo_adivinhacao(tentativas, pontos, bonus, total):
     print('{:<15}{:>5}'.format("Pontos:", pontos))
     print('{:<15}{:>5}'.format("Bonus:", bonus))
     print('{:<15}{:>5}'.format("Total:", total))
+
+
+def boneco(erros, espaco):
+    os.system('cls' if os.name == 'nt' else 'clear') or None
+    b = chr(92)
+    boneco = ['O', '/', '|', b, '/', b]
+    if erros >= 1:
+        print(f'{boneco[0]}'.rjust(espaco + 7))
+        sleep(0.5)
+    if erros >= 2:
+        print(f'{boneco[1]}'.rjust(espaco + 7), end='')
+        sleep(0.5)
+    if erros >= 3:
+        print(f'{boneco[2]}', end='')
+        sleep(0.5)
+    if erros >= 4:
+        print(f'{boneco[3]}')
+        sleep(0.5)
+    if erros >= 5:
+        print(f'{boneco[4]}'.rjust(espaco + 7), end='')
+        sleep(0.5)
+    if erros >= 6:
+        print(f'{boneco[5]:}'.rjust(2))
+
+    if 2 <= erros <= 3 or erros == 5:
+        print()
+
+    for c in range(0, 6):
+        print('_ ', end='')
+
+
+if __name__ == '__main__':
+    boneco(6, 6)
