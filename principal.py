@@ -18,6 +18,7 @@ while True:
             adv.jogo()
         elif escolha == 2:
             print('Jogando Forca')
+            forca.jogo()
         break
     else:
         print(f'\033[1;31mVocê pode escolher de 0 a {len(opcoes) - 1}\033[0m')

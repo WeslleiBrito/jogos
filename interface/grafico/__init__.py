@@ -1,4 +1,3 @@
-import os
 from time import sleep
 
 
@@ -34,36 +33,32 @@ def resumo_adivinhacao(tentativas, pontos, bonus, total):
     print('{:<15}{:>5}'.format("Total:", total))
 
 
-def boneco(erros, espaco):
-    palavra = 'Palavra Secreta: '
-    espaco = espaco + len(palavra) + 1
-    os.system('cls' if os.name == 'nt' else 'clear') or None
+def boneco(erros, espaco, msg):
+
+    espaco = espaco + len(msg) + 3
     b = chr(92)
-    boneco = ['O', '/', '|', b, '/', b]
+    desenho = ['O', '/', '|', b, '/', b]
     if erros >= 1:
-        print(f'{boneco[0]}'.rjust(espaco))
+        print(f'{desenho[0]}'.rjust(espaco))
         sleep(0.5)
     if erros >= 2:
-        print(f'{boneco[1]}'.rjust(espaco), end='')
+        print(f'{desenho[1]}'.rjust(espaco - 1), end='')
         sleep(0.5)
     if erros >= 3:
-        print(f'{boneco[2]}', end='')
+        print(f'{desenho[2]}', end='')
         sleep(0.5)
     if erros >= 4:
-        print(f'{boneco[3]}')
+        print(f'{desenho[3]}')
         sleep(0.5)
     if erros >= 5:
-        print(f'{boneco[4]}'.rjust(espaco), end='')
+        print(f'{desenho[4]}'.rjust(espaco - 1), end='')
         sleep(0.5)
     if erros >= 6:
-        print(f'{boneco[5]:}'.rjust(2))
+        print(f'{desenho[5]:}'.rjust(2))
 
     if 2 <= erros <= 3 or erros == 5:
         print()
-    print(palavra, end='')
-    for c in range(0, 6):
-        print('_ ', end='')
 
 
 if __name__ == '__main__':
-    boneco(6, 6)
+    boneco(6, 6, 'Palavra secreta')

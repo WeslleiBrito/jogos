@@ -5,37 +5,48 @@ from interface.grafico import boneco
 def jogo():
     enforcou = False
     acertou = False
-    palavras = ['banana', 'games', 'pesquisa', 'historia', 'educação', 'modelo', 'impressora']
-    computador = randint(0, len(palavras))
+    palavras = ['banana', 'games', 'pesquisa', 'historia', 'educação', 'modelo', 'impressora',
+                'lampada', 'formiga' 'zoologico', 'paises', 'mundo', 'janeiro', 'felicidade']
+    computador = randint(0, len(palavras) - 1)
     palavra_secreta = palavras[computador]
     letras_encontradas = []
     encontrada = 0
-    enf = 0
-    atual = ''
-    anterior = ''
-    print('Palavra Secreta:', '_ ' * len(palavra_secreta))
+    erros = 0
+    msg = 'Palavra Secreta: '
+
     for index in range(0, len(palavra_secreta)):
-        letras_encontradas.append('_ ')
-    print(letras_encontradas)
+        letras_encontradas.append('_')
     print(palavra_secreta)
     while not acertou and not enforcou:
-        chute = str(input('Digite uma letra ou o nome: ')).strip().lower()
+        chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
         if len(chute) == 1:
             for index, letra in enumerate(palavra_secreta):
                 if chute == letra:
-                    print(f'Encontrei a letra "{letra}" na posição {index}')
                     letras_encontradas[index] = letra
-                    print(letras_encontradas)
                     encontrada = 1
-                if encontrada == 0:
-                    enf += 1
-                if enf == 6:
-                    print('Game Over')
-                    enforcou = True
+
+            if encontrada == 0 or chute in letras_encontradas:
+                erros += 1
+                boneco(erros, len(palavra_secreta), msg)
+            else:
+                if erros != 0:
+                    boneco(erros, len(palavra_secreta), msg)
+
+            if erros == 6:
+                print('Game Over')
+                enforcou = True
+            else:
+                encontrada = 0
+                print(msg, end='')
+                for descobertas in letras_encontradas:
+                    print(descobertas, end='')
         else:
             if palavra_secreta == chute:
                 print('Você venceu a partida')
-        print('jogando...')
+                acertou = True
+            else:
+                print(f'Game Over\nA palavra secreta é: {palavra_secreta}')
+                enforcou = True
 
 
 if __name__ == '__main__':
