@@ -2,13 +2,12 @@ from random import randint
 from interface.grafico import boneco
 
 
-def pontos(letras_e, palavra_s, pontuacao):
+def pontos(letras_e, palavra_s, pontuacao, rodadas):
     bonus = 10
-    restante = abs(letras_e - palavra_s)
-    if restante != 0:
-        bonus = bonus * restante
+    if letras_e == palavra_s and rodadas <= 0:
+        bonus = 0
     else:
-        bonus = bonus * palavra_s
+        bonus = bonus * rodadas
     print(f'{"Pontuação:":15}{pontuacao:>4}\n{"Bonus:":15}{bonus:>4}\n{"Total:":15}{pontuacao + bonus:>4}')
 
 
@@ -25,10 +24,9 @@ def jogo():
     msg = 'Palavra Secreta: '
     i = []
     pontuacao = 1000
-    rodadas = 0
+    rodadas = len(palavra_secreta)
     for index in range(0, len(palavra_secreta)):
         letras_encontradas.append('_')
-    print(palavra_secreta)
     while not acertou and not enforcou:
         chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
         if len(chute) == 1:
@@ -44,33 +42,34 @@ def jogo():
             else:
                 if erros != 0:
                     boneco(erros, len(palavra_secreta), msg)
-                    pontuacao -= 10
+                pontuacao -= 10
+            rodadas -= 1
 
             for lt in i:
                 letras_encontradas[lt] = palavra_secreta[lt]
             i.clear()
 
             if erros == 6:
-                print('Game Over')
+                print(f'Game Over\nA palavra secreta é: {palavra_secreta}')
                 enforcou = True
             else:
-                if letras_encontradas == palavra_secreta:
-                    pontos(len(letras_encontradas), len(palavra_secreta), pontuacao)
-                    acertou = True
-                else:
-                    encontrada = 0
-                    print(msg, end='')
-                    for descobertas in letras_encontradas:
-                        print(descobertas, end='')
+                encontrada = 0
+                print(msg, end='')
+                for descobertas in letras_encontradas:
+                    print(descobertas, end='')
+            unidas = ''.join(letras_encontradas)
+            if unidas == palavra_secreta:
+                print()
+                pontos(unidas, palavra_secreta, pontuacao, rodadas)
+                acertou = True
         else:
             if palavra_secreta == chute:
                 print('Você venceu a partida')
-                pontos(len(letras_encontradas), len(palavra_secreta), pontuacao)
+                pontos(''.join(letras_encontradas), palavra_secreta, pontuacao, rodadas)
                 acertou = True
             else:
                 print(f'Game Over\nA palavra secreta é: {palavra_secreta}')
                 enforcou = True
-        rodadas += 1
 
 
 if __name__ == '__main__':
