@@ -1,13 +1,10 @@
-from random import randint
 from interface.grafico import boneco, preenchendo_letras
 
 
 def jogo():
     enforcou = False
     acertou = False
-    palavras = ['banana', 'games', 'pesquisa', 'historia', 'educação', 'modelo', 'impressora',
-                'lampada', 'formiga', 'zoologico', 'paises', 'mundo', 'janeiro', 'felicidade']
-    palavra_secreta = palavras[gera_indice(len(palavras))]
+    palavra_secreta = gera_secreta()
     encontrada = 0
     erros = 0
     msg = 'Palavra Secreta: '
@@ -61,10 +58,6 @@ def jogo():
                 enforcou = True
 
 
-def gera_indice(lista):
-    return randint(0, lista - 1)
-
-
 def pontos(letras_e, palavra_s, pontuacao, rodadas):
     bonus = 10
     if letras_e == palavra_s and rodadas <= 0:
@@ -72,6 +65,16 @@ def pontos(letras_e, palavra_s, pontuacao, rodadas):
     else:
         bonus = bonus * rodadas
     print(f'{"Pontuação:":15}{pontuacao:>4}\n{"Bonus:":15}{bonus:>4}\n{"Total:":15}{pontuacao + bonus:>4}')
+
+
+def gera_secreta():
+    from random import randint
+    lista_palavras = []
+    arquivo = open('C:/Users/9010/PycharmProjects/jogos/jogos/forca/palavras.txt', 'r')
+    for linha in arquivo:
+        lista_palavras.append(linha.strip())
+    computador = randint(0, len(lista_palavras) - 1)
+    return lista_palavras[computador]
 
 
 if __name__ == '__main__':
