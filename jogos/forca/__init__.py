@@ -1,14 +1,5 @@
 from random import randint
-from interface.grafico import boneco
-
-
-def pontos(letras_e, palavra_s, pontuacao, rodadas):
-    bonus = 10
-    if letras_e == palavra_s and rodadas <= 0:
-        bonus = 0
-    else:
-        bonus = bonus * rodadas
-    print(f'{"Pontuação:":15}{pontuacao:>4}\n{"Bonus:":15}{bonus:>4}\n{"Total:":15}{pontuacao + bonus:>4}')
+from interface.grafico import boneco, preenchendo_letras
 
 
 def jogo():
@@ -16,16 +7,15 @@ def jogo():
     acertou = False
     palavras = ['banana', 'games', 'pesquisa', 'historia', 'educação', 'modelo', 'impressora',
                 'lampada', 'formiga', 'zoologico', 'paises', 'mundo', 'janeiro', 'felicidade']
-    computador = randint(0, len(palavras) - 1)
-    palavra_secreta = palavras[computador]
+    palavra_secreta = palavras[gera_indice(len(palavras))]
     encontrada = 0
     erros = 0
     msg = 'Palavra Secreta: '
     i = []
     pontuacao = 1000
     rodadas = len(palavra_secreta)
-    letras_encontradas = ['_' for index in palavra_secreta]
-   
+    letras_encontradas = preenchendo_letras(palavra_secreta)
+
     while not acertou and not enforcou:
         chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
         if len(chute) == 1:
@@ -69,6 +59,19 @@ def jogo():
             else:
                 print(f'Game Over\nA palavra secreta é: {palavra_secreta}')
                 enforcou = True
+
+
+def gera_indice(lista):
+    return randint(0, lista - 1)
+
+
+def pontos(letras_e, palavra_s, pontuacao, rodadas):
+    bonus = 10
+    if letras_e == palavra_s and rodadas <= 0:
+        bonus = 0
+    else:
+        bonus = bonus * rodadas
+    print(f'{"Pontuação:":15}{pontuacao:>4}\n{"Bonus:":15}{bonus:>4}\n{"Total:":15}{pontuacao + bonus:>4}')
 
 
 if __name__ == '__main__':

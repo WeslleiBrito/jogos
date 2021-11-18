@@ -60,5 +60,10 @@ def boneco(erros, espaco, msg):
         print()
 
 
+def preenchendo_letras(tamanho):
+    linhas = ['_' for index in tamanho]
+    return linhas
+
+
 if __name__ == '__main__':
     boneco(6, 6, 'Palavra secreta')
