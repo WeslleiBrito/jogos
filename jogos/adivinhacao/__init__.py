@@ -28,7 +28,6 @@ def jogo():
         else:
             print(f'Escolha não encontrada, suas opções são entre 1 e {len(niveis)}.')
     computador = randint(1, 50)
-    print(computador)
     for c in range(0, final):
         tentativa += 1
         if tentativa == 1:
@@ -44,7 +43,6 @@ def jogo():
             bonus -= 10
             pontuacao -= int(math.fabs(computador - palpite))
             total = pontuacao + bonus
-            print(total)
             if computador > palpite:
                 sugestao = 'maior'
             else:
@@ -53,6 +51,7 @@ def jogo():
                 print(f'Não foi dessa vez, tente novamente com um valor {sugestao}.')
             else:
                 print('Infelizmente você esgotou suas tentativas, GAME OVER.')
+                print(f'O número secreto foi: {computador}')
 
 
 if __name__ == '__main__':

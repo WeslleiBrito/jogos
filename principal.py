@@ -4,8 +4,9 @@ import jogos.adivinhacao as adv
 import jogos.forca as forca
 titulo_abertura = 'Bem-vindo ao MAXGAME'
 opcoes = ['Adivinhação', 'Forca', 'Sair']
+escolha = -1
 
-while True:
+while escolha != 0:
     grafico.linha(len(titulo_abertura))
     grafico.titulo(titulo_abertura, len(titulo_abertura))
     grafico.titulo('JOGOS', len(titulo_abertura))
@@ -19,7 +20,6 @@ while True:
         elif escolha == 2:
             print('Jogando Forca')
             forca.jogo()
-        break
     else:
         print(f'\033[1;31mVocê pode escolher de 0 a {len(opcoes) - 1}\033[0m')
 
