@@ -18,15 +18,14 @@ def jogo():
                 'lampada', 'formiga', 'zoologico', 'paises', 'mundo', 'janeiro', 'felicidade']
     computador = randint(0, len(palavras) - 1)
     palavra_secreta = palavras[computador]
-    letras_encontradas = []
     encontrada = 0
     erros = 0
     msg = 'Palavra Secreta: '
     i = []
     pontuacao = 1000
     rodadas = len(palavra_secreta)
-    for index in range(0, len(palavra_secreta)):
-        letras_encontradas.append('_')
+    letras_encontradas = ['_' for index in palavra_secreta]
+   
     while not acertou and not enforcou:
         chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
         if len(chute) == 1:
