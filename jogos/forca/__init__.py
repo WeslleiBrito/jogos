@@ -70,11 +70,13 @@ def pontos(letras_e, palavra_s, pontuacao, rodadas):
 def gera_secreta():
     from random import randint
     lista_palavras = []
-    arquivo = open('C:/Users/9010/PycharmProjects/jogos/jogos/forca/palavras.txt', 'r')
-    for linha in arquivo:
-        lista_palavras.append(linha.strip())
-    computador = randint(0, len(lista_palavras) - 1)
-    return lista_palavras[computador]
+    with open('palavras.txt', encoding='utf-8') as arquivo:
+        for palavra in arquivo:
+            lista_palavras.append(palavra.strip())
+
+        computador = randint(0, len(lista_palavras) - 1)
+        palavra_secreta = lista_palavras[computador]
+        return palavra_secreta
 
 
 if __name__ == '__main__':
