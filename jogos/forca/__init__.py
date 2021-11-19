@@ -15,10 +15,15 @@ def jogo():
     i = []
     pontuacao = 1000
     rodadas = len(palavra_secreta)
+    rd = 0
     letras_encontradas = preenchendo_letras(palavra_secreta)
 
     while not acertou and not enforcou:
-        chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
+        if rd > 0:
+            chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
+        else:
+            chute = str(input('Digite uma letra ou o nome: ')).strip().lower()
+            rd = 1
         chute = unidecode.unidecode(chute)
         if len(chute) == 1:
             for index, letra in enumerate(palavra_secreta):
