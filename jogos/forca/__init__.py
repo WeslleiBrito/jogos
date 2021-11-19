@@ -1,11 +1,14 @@
 from interface.grafico import boneco, preenchendo_letras
 import unidecode
 
+
 def jogo():
     enforcou = False
     acertou = False
     palavra_secreta = gera_secreta()
-    print(palavra_secreta)
+    palavra_real = palavra_secreta[1]
+    palavra_secreta = palavra_secreta[0]
+
     encontrada = 0
     erros = 0
     msg = 'Palavra Secreta: '
@@ -16,6 +19,7 @@ def jogo():
 
     while not acertou and not enforcou:
         chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
+        chute = unidecode.unidecode(chute)
         if len(chute) == 1:
             for index, letra in enumerate(palavra_secreta):
                 letra = letra.lower()
@@ -39,7 +43,7 @@ def jogo():
             i.clear()
 
             if erros == 6:
-                print(f'Game Over\nA palavra secreta é: {palavra_secreta}')
+                print(f'Game Over. A palavra secreta é: {palavra_real}')
                 enforcou = True
             else:
                 encontrada = 0
@@ -52,14 +56,8 @@ def jogo():
                 pontos(unidas, palavra_secreta, pontuacao, rodadas)
                 acertou = True
         else:
-            palavra_secreta.lower()
-            lista_palavra = []
-            for ltr in palavra_secreta:
-                lista_palavra.append(ltr)
-            for indice in range(len(lista_palavra)):
-                lista_palavra[indice] = unidecode.unidecode(palavra_secreta[indice])
-            lista_palavra = ''.join(lista_palavra)
-            if palavra_secreta == lista_palavra:
+
+            if palavra_secreta == chute:
                 print('Você venceu a partida')
                 pontos(''.join(letras_encontradas), palavra_secreta, pontuacao, rodadas)
                 acertou = True
@@ -80,13 +78,20 @@ def pontos(letras_e, palavra_s, pontuacao, rodadas):
 def gera_secreta():
     from random import randint
     lista_palavras = []
+    lista_letras = []
     with open('palavras.txt', encoding='utf-8') as arquivo:
         for palavra in arquivo:
             lista_palavras.append(palavra.strip())
 
-        computador = randint(0, len(lista_palavras) - 1)
-        palavra_secreta = lista_palavras[computador]
-        return palavra_secreta
+    computador = randint(0, len(lista_palavras) - 1)
+    palavra_secreta = lista_palavras[computador]
+    palavra_secreta_real = palavra_secreta
+    for letra in palavra_secreta:
+        lista_letras.append(letra)
+    for indice, letra in enumerate(lista_letras):
+        lista_letras[indice] = unidecode.unidecode(letra)
+    palavra_secreta = ''.join(lista_letras).lower()
+    return [palavra_secreta, palavra_secreta_real]
 
 
 if __name__ == '__main__':
