@@ -65,5 +65,15 @@ def preenchendo_letras(tamanho):
     return linhas
 
 
+def nome_jogo(nome):
+    b = 'Bem-Vindo ao jogo da '
+    tamanho = len(nome) + len(b) + 10
+    print('-' * tamanho)
+    print('|', end='')
+    print(f'{b+nome}'.center(tamanho - 2), end='')
+    print('|')
+    print('-' * tamanho)
+
+
 if __name__ == '__main__':
     boneco(6, 6, 'Palavra secreta')

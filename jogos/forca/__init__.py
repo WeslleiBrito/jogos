@@ -1,10 +1,11 @@
 from interface.grafico import boneco, preenchendo_letras
-
+import unidecode
 
 def jogo():
     enforcou = False
     acertou = False
     palavra_secreta = gera_secreta()
+    print(palavra_secreta)
     encontrada = 0
     erros = 0
     msg = 'Palavra Secreta: '
@@ -17,6 +18,8 @@ def jogo():
         chute = str(input('\nDigite uma letra ou o nome: ')).strip().lower()
         if len(chute) == 1:
             for index, letra in enumerate(palavra_secreta):
+                letra = letra.lower()
+                letra = unidecode.unidecode(letra)
                 if chute == letra:
                     i.append(index)
                     encontrada = 1
@@ -49,7 +52,14 @@ def jogo():
                 pontos(unidas, palavra_secreta, pontuacao, rodadas)
                 acertou = True
         else:
-            if palavra_secreta == chute:
+            palavra_secreta.lower()
+            lista_palavra = []
+            for ltr in palavra_secreta:
+                lista_palavra.append(ltr)
+            for indice in range(len(lista_palavra)):
+                lista_palavra[indice] = unidecode.unidecode(palavra_secreta[indice])
+            lista_palavra = ''.join(lista_palavra)
+            if palavra_secreta == lista_palavra:
                 print('Você venceu a partida')
                 pontos(''.join(letras_encontradas), palavra_secreta, pontuacao, rodadas)
                 acertou = True
